@@ -1,5 +1,5 @@
 import { getApps, getApp, initializeApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth'
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 
@@ -20,5 +20,8 @@ if (!getApps().length) {
 const firebaseApp = getApp()
 
 export const auth = getAuth(firebaseApp)
+export { signInWithPopup as signIn, signOut }
+export const googleAuthProvider = new GoogleAuthProvider();
+
 export const firestore = getFirestore(firebaseApp)
 export const storage = getStorage(firebaseApp)
