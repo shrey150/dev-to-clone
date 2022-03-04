@@ -40,5 +40,7 @@ function SignOutButton() {
 }
 
 function UsernameForm() {
-    return <></>
+    return <>
+    You still need to choose a username.
+    </>
 }
