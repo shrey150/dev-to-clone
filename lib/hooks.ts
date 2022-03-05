@@ -11,18 +11,15 @@ export function useUserData() {
   
       // callback function returned by Firebase,
       // allows us to unsubscribe from realtime updates
-      let unsubscribe
+      let unsubscribe;
   
       // if logged in
       if (user) {
         // get reference to user's document
-        const ref = doc(collection(db, "users"), user.uid)
-
-        console.log(ref)
+        const ref = doc(usersRef, user.uid)
   
         // when user data is updated, update "username" state (if it exists)
         unsubscribe = onSnapshot(ref, (doc) => {
-          console.log(doc.data())
           setUsername(doc.data()?.username)
         })
       }
