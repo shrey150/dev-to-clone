@@ -1,4 +1,4 @@
-import { auth, doc, usersRef, onSnapshot, collection, db } from '../lib/firebase'
+import { auth, onSnapshot, getUserDoc } from '../lib/firebase'
 import { useEffect, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
@@ -16,7 +16,7 @@ export function useUserData() {
       // if logged in
       if (user) {
         // get reference to user's document
-        const ref = doc(usersRef, user.uid)
+        const ref = getUserDoc(user.uid)
   
         // when user data is updated, update "username" state (if it exists)
         unsubscribe = onSnapshot(ref, (doc) => {
@@ -24,10 +24,7 @@ export function useUserData() {
         })
       }
       // if not logged in
-      else {
-        console.log("Nope not logged in")
-        setUsername(null)
-      }
+      else setUsername(null)
   
       return unsubscribe
   

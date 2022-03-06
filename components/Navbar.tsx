@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { useContext } from 'react'
 import { UserContext } from '../lib/context'
 import { signOut, auth } from '../lib/firebase'

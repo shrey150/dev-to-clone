@@ -1,4 +1,4 @@
-import { getApps, getApp, initializeApp } from 'firebase/app'
+import { getApp, initializeApp } from 'firebase/app'
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, User } from 'firebase/auth'
 import { getFirestore, collection, query, where, doc, onSnapshot, getDoc, writeBatch } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
@@ -13,11 +13,16 @@ const firebaseConfig = {
     measurementId: "G-YWPQ8Y9RDH"
 }
 
-if (!getApps().length) {
-    initializeApp(firebaseConfig)
+function createFirebaseApp(config) {
+    try {
+        return getApp();
+    }
+    catch {
+        return initializeApp(config)
+    }
 }
 
-const firebaseApp = getApp()
+const firebaseApp = createFirebaseApp(firebaseConfig)
 
 export const auth = getAuth(firebaseApp)
 export { signInWithPopup as signIn, signOut }
