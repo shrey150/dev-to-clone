@@ -1,18 +1,32 @@
-import { useContext } from "react"
-import { UserContext } from "../../lib/context"
+import PostFeed from "../../components/PostFeed"
+import UserProfile from "../../components/UserProfile"
+import { getPostsFromUser, getUserByUsername } from "../../lib/firebase"
 
-export default function UserProfilePage({ }) {
+export async function getServerSideProps({ query }) {
 
-    const { user, username } = useContext(UserContext)
+    const { username } = query;
+    const userDoc = await getUserByUsername(username);
 
+    let user = null
+    let posts = null
+
+    // if user exists, fetch their last 5 posts
+    if (userDoc) {
+        user = userDoc.data()
+        posts = await getPostsFromUser(userDoc, 5)
+    }
+
+    return {
+        props: { user, posts }
+    }
+    
+}
+
+export default function UserProfilePage({ user, posts }) {
     return (
         <main>
-            {username
-            ? 
-            <h1>{`${username}'s page`}</h1>
-            :
-            <p>You still need to set a username.</p>
-            }
+            <UserProfile user={user} />
+            <PostFeed posts={posts} admin={false} />
         </main>
     )
 }
