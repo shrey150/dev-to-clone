@@ -16,7 +16,7 @@ export default function Navbar({ }) {
       <ul>
         <li>
           <Link href="/" passHref>
-            <button className="btn-logo">FEED</button>
+            <button className="btn-logo">SMP</button>
           </Link>
         </li>
 
